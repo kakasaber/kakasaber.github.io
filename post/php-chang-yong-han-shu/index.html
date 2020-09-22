@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Gridea</title>
+<title>php 常用函数 | Gridea</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://kakasaber.github.io">Gridea</a></h3>
@@ -60,25 +61,24 @@
   </div>
 </nav>
 
-
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://kakasaber.github.io/post/php-chang-yong-han-shu/">php 常用函数</a>
-    </h2>
-    <p class="article-meta">
-      2020-09-22
-      
-        <a href="https://kakasaber.github.io/tag/6TZRbx31K/" class="badge ">
-          php
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      <p>一、 数学函数<br>
+          <article class="article">
+            <h1>php 常用函数</h1>
+            <p class="article-meta">
+              2020-09-22
+              
+                <a href="https://kakasaber.github.io/tag/6TZRbx31K/" class="badge warning">
+                  php
+                </a>
+              
+            </p>
+            
+              <img src="https://kakasaber.github.io/post-images/php-chang-yong-han-shu.jpg" alt="php 常用函数">
+            
+            <div class="post-content">
+              <p>一、 数学函数<br>
 1.abs(): 求绝对值 求绝对值<br>
 $abs = abs(-4.2);<br>
 输入：任意数字<br>
@@ -943,73 +943,101 @@ var_dump(checkdate(2,29,2004));<br>
 输出结果：bool(false)<br>
 bool(false)<br>
 bool(true)</p>
+<!-- more -->
+<!-- more -->
+<p>158.date_default_timezone_set(): 设定用于一个脚本中所有日期时间函数的默认时区 设定用于一个脚本中所有日期时间函数的默认时区<br>
+date_default_timezone_set('PRC');</p>
+<p>159.getdate(): 取得日期／时间信息 取得日期／时间信息<br>
+print_r(getdate());<br>
+输出结果: Array ( [seconds] =&gt; 42 [minutes] =&gt; 18 [hours] =&gt; 6 [mday]<br>
+=&gt; 10 [wday] =&gt; 3 [mon] =&gt; 5 [year] =&gt; 2017 [yday] =&gt; 129 [weekday] =&gt;<br>
+Wednesday [month] =&gt; May [0] =&gt; 1494397122 ) （ 返回一个根据 timestamp 得出<br>
+的包含有日期信息的关联数组。如果没有给出时间戳则认为是当前本地时间 ）</p>
+<p>160.strtotime(): 为 将任何英文文本的日期时间描述解析为 Unix 时间戳 时间戳<br>
+echo strtotime(&quot;now&quot;);<br>
+输出结果：1494397277</p>
+<p>161.microtime(): 前 返回当前 Unix 时间戳和微秒数 时间戳和微秒数<br>
+echo(microtime());<br>
+输出结果： 0.00806100<br>
+1494398062</p>
+<p>二十四、其他常用:<br>
+162.intval(): 获取变量的整数值 获取变量的整数值<br>
+echo intval(0.99);<br>
+变量转成整数类型<br>
+输出结果：0（向下取整）</p>
+<p>163.PDO 数 类的相关函数 prepare() execute() fetch()</p>
+<?php$driver = 'mysql';
+$database = "dbname=CODINGGROUND";
+$dsn = "$driver:host=localhost;unix_socket=/home/cg/mysql/mysql.sock;$database";
+$username = 'root';
+$password = 'root';try {
+$conn = new PDO($dsn, $username, $password);
+echo "<h2>Database CODINGGROUND Connected<h2>";
+}catch(PDOException $e){
+echo "<h1>" . $e->getMessage() . "</h1>";
+}
+$sql = 'SELECT * FROM users';
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+echo "<table style='width:100%'>";
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+echo "<tr>";
+foreach($row as $value){
+echo sprintf("<td>%s</td>", $value);
+} echo "</tr>";
+}echo "</table>";?>
+<ol start="164">
+<li>正则表达式-元字符 元字符<br>
+元字符及其匹配范围<br>
+\d 匹配任意一个十进制数字,等价于: [0-9]<br>
+\D 匹配除十进制数字以外的任意数字,等价于: [^0-9]<br>
+\s:匹配空白字符,等价于: [\n\f\r\t\v]<br>
+\S: 匹配除空白字符以外的任意一个字符, 等价于[^\n\f\r\t\v]<br>
+\w 匹配任意一个数字、字母和下划线,等价于: [0-9a-zA-Z_]<br>
+\W 匹配除字母、数字和下划线以外的任意字符, 等价于: [^0-9a-zA-Z_]<br>
+[]：1)用来表示范围。2)匹配任意一个中括号中定义的原子<br>
+[^]: 中括号里面的^(抑扬符)：表示匹配任意一个除中括号里面定义的原子<br>
+限定次数</li>
+</ol>
+<ul>
+<li>匹配 0 次、1 次或多次其前的原子, 等价于: {0,}</li>
+</ul>
+<ul>
+<li>匹配 1 次或多次其前的原子, 等价于: {1,}<br>
+? 匹配 0 次或 1 次其前的原子, 等价于: {0,1}<br>
+{n} 表示其前的原子正好出现 n 次, 等价于: {n,} 表示其前的原子至少出现 n 次，最多不限制<br>
+{m,n} 表示其前的原子最少出现 m 次，最多出现 n 次<br>
+其它<br>
+. 匹配除换行符(\n)以外的任意字符【windows 下还匹配\f\r】 | 两个或多个分支选择【优先<br>
+级最低】<br>
+^ 匹配输入字符的开始位置<br>
+$ 匹配输入字符的结束位置<br>
+\b 匹配词边界<br>
+\B 匹配非词边界<br>
+() 1)模式单元，把多个小原子组成一个大原子。2)可以改变优先级</li>
+</ul>
+<!-- more -->
 
-    </p>
-    <div class="row">
-      <a href="https://kakasaber.github.io/post/php-chang-yong-han-shu/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://kakasaber.github.io/post/hello-world/">hello world </a>
-    </h2>
-    <p class="article-meta">
-      2020-09-22
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://kakasaber.github.io/post/hello-world/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://kakasaber.github.io/post/hello-gridea/">Hello Gridea</a>
-    </h2>
-    <p class="article-meta">
-      2018-12-12
-      
-        <a href="https://kakasaber.github.io/tag/zQ8HXY2On/" class="badge secondary">
-          Gridea
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-
-    </p>
-    <div class="row">
-      <a href="https://kakasaber.github.io/post/hello-gridea/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://kakasaber.github.io/post/hello-world/">
+                <h3 class="post-title">
+                  hello world 
+                </h3>
+              </a>
+            </div>
+          
         </div>
         
-        <div class="row flex-edges">
-  
-  
-</div>
-
       </div>
-      
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://kakasaber.github.io/images/avatar.png?v=1600767939872" class="no-responsive avatar">
@@ -1068,11 +1096,11 @@ bool(true)</p>
     </div>
     <div class="row">
       
-        <a href="https://kakasaber.github.io/tag/6TZRbx31K/" class="badge ">
+        <a href="https://kakasaber.github.io/tag/6TZRbx31K/" class="badge secondary">
           php
         </a>
       
-        <a href="https://kakasaber.github.io/tag/zQ8HXY2On/" class="badge success">
+        <a href="https://kakasaber.github.io/tag/zQ8HXY2On/" class="badge warning">
           Gridea
         </a>
       
@@ -1083,7 +1111,9 @@ bool(true)</p>
   </div>
 </div>
 
+
     </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script type="application/javascript">
